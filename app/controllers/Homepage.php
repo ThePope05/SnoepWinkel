@@ -6,7 +6,7 @@ class Homepage extends BaseController
 
     public function __construct()
     {
-        $this->model = $this->model('HomepageModel');
+        #
     }
 
     public function index()

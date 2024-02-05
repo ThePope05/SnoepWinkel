@@ -13,7 +13,8 @@ class Product extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Product'
+            'title' => 'Product overview',
+            'products' => $this->model->getInventory()
         ];
 
         $this->view('Product/index', $data);
