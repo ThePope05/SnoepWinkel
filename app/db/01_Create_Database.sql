@@ -1,32 +1,5 @@
-drop database if exists snoepwinkel;
-create database snoepwinkel;
-use snoepwinkel;
 
-create table storage(
-	id tinyint primary key auto_increment,
-    productId tinyint not null,
-    packageUnit decimal(3,1) not null,
-    inStorage int
-)Engine=InnoDB;
-
-create table product(
-	id tinyint primary key auto_increment,
-    name varchar(30) not null,
-    barcode varchar(255) not null unique key
-)Engine=InnoDB;
-
-create table productAllergy(
-	id tinyint primary key auto_increment,
-    productId tinyint not null,
-    allergyId tinyint not null
-)Engine=InnoDB;
-
-create table allergy(
-	id tinyint primary key auto_increment,
-    name varchar(30) not null,
-    description varchar(255)
-)Engine=InnoDB;
-
+drop table if exists productSupplier;
 create table productSupplier(
 	id tinyint primary key auto_increment,
     productId tinyint not null,
@@ -36,6 +9,37 @@ create table productSupplier(
     dateNextDelivery date
 )Engine=InnoDB;
 
+drop table if exists storage;
+create table storage(
+	id tinyint primary key auto_increment,
+    productId tinyint not null,
+    packageUnit decimal(3,1) not null,
+    inStorage int
+)Engine=InnoDB;
+
+drop table if exists productAllergy;
+create table productAllergy(
+	id tinyint primary key auto_increment,
+    productId tinyint not null,
+    allergyId tinyint not null
+)Engine=InnoDB;
+
+drop table if exists product;
+create table product(
+	id tinyint primary key auto_increment,
+    name varchar(30) not null,
+    barcode varchar(255) not null unique key
+)Engine=InnoDB;
+
+drop table if exists allergy;
+create table allergy(
+	id tinyint primary key auto_increment,
+    name varchar(30) not null,
+    description varchar(255)
+)Engine=InnoDB;
+
+
+drop table if exists supplier;
 create table supplier(
 	id tinyint primary key auto_increment,
     name varchar(20) not null,
