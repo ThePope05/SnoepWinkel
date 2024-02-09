@@ -1,4 +1,6 @@
 <?php
+
+require_once 'libraries/GlobalFunctions.php';
 require_once 'libraries/ErrorCode.php';
 require_once 'libraries/Core.php';
 require_once 'libraries/BaseController.php';
