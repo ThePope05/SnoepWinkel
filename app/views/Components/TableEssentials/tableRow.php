@@ -1,5 +1,5 @@
 <tr>
     <?php foreach ($componentData['rowData'] as $dataPoint) : ?>
-        <td><?= $cell ?></td>
+        <td><?= $dataPoint ?></td>
     <?php endforeach; ?>
 </tr>

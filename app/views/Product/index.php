@@ -5,33 +5,28 @@ $this->component('PageEssentials/head', ['title' => $data['title']]);
 <body>
     <!-- All html goes here -->
     <h1><?= $data['title'] ?></h1>
+    <?php if (isset($data['pageInfo'])) : ?>
+        <div>
+            <?php foreach ($data['pageInfo'] as $key => $value) : ?>
+                <p><?= $key ?> <?= $value ?></p>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
     <table>
         <thead>
-            <tr>
-                <th>Product Code</th>
-                <th>Product Name</th>
-                <th>Package unit</th>
-                <th>In storage</th>
-            </tr>
+            <?php
+            $this->component('TableEssentials/tableHead', ['rowData' => $data['table']['head']]);
+            ?>
         </thead>
         <tbody>
-            <?php foreach ($data['products'] as $product) : ?>
-                <tr>
-                    <td><?= $product->barcode ?></td>
-                    <td><?= $product->name ?></td>
-                    <td><?= $product->packageUnit ?></td>
-                    <?php if ($product->inStorage > 0) : ?>
-                        <td><?= $product->inStorage ?></td>
-                    <?php else : ?>
-                        <td>Not in stock</td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
+            <?php
+            foreach ($data['table']['body'] as $row) {
+                $this->component('TableEssentials/tableRow', ['rowData' => $row]);
+            }
+            ?>
         </tbody>
     </table>
 </body>
-
-<!-- Page still has to be closed -->
 
 </html>

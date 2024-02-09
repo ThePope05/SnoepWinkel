@@ -9,16 +9,20 @@ class AllergyModel
         $this->db = new Database();
     }
 
-    //Example of a query
-    public function index(int $id)
+    public function getProductAllergys($id)
     {
-        //Here you can write your query
-        $this->db->query("SELECT * FROM TABLE_NAME WHERE id = :id");
+        $this->db->query('SELECT allergy.name, allergy.description FROM allergy
+                          LEFT JOIN productAllergy ON productAllergy.allergyId = allergy.id
+                          WHERE productAllergy.productId = :id');
+        $this->db->bind(':id', $id);
+        return $this->db->execute(true);
+    }
 
-        //Here you can bind your parameters
+    public function hasAllergys($id)
+    {
+        $this->db->query('SELECT count(id) AS allergyAmount FROM productAllergy WHERE productId = :id');
         $this->db->bind(':id', $id);
 
-        //Here you can execute your query and return the result if you want
-        return $this->db->execute(true);
+        return $this->db->execute(true)[0]->allergyAmount > 0;
     }
 }
