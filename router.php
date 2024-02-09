@@ -4,10 +4,8 @@
 // exit;
 
 //This file will be used to check all url data, and validate it
-//If valid and no dangers are found, it will send user with the data to the /public/index.php file
-//If not valid, it will send the user to the /public/error.php file
-
-//We need to start by making sure the url is valid
+//If valid and no dangers are found, it will send user with the data to the /app/require.php file
+//If not valid, it will send the user an error code
 
 $url = $_SERVER['REQUEST_URI'];
 
