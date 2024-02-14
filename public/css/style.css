@@ -4,4 +4,42 @@ html{font-size: 18px;}
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #e0bed7 10%, #2d37b0 90%);
+}
+
+body > table{
+    width: 100%;
+    max-width: 75%;
+    margin: 0 auto;
+    border-collapse:collapse;
+    background-color: #dedbeb;
+    border-radius: .2rem;
+    box-shadow: 1rem 1rem 2rem rgba(16, 24, 81, 0.534);
+}
+
+table tr, table th{
+    padding: .1rem 1rem;
+    text-align: center;
+    border: 2px solid #353a77;
+}
+
+a{
+    text-decoration: none;
+    color: #353a77;
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover{
+    color: #6a71ba !important;
 }
