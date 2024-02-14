@@ -2,13 +2,6 @@
 
 class Homepage extends BaseController
 {
-    private $model;
-
-    public function __construct()
-    {
-        #
-    }
-
     public function index()
     {
         $data = [

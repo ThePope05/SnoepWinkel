@@ -23,6 +23,6 @@ class ProductModel extends BaseModel
 
     public function getProduct(int $id)
     {
-        return $this->get(['*'], ['id = ' . $id]);
+        return $this->get(['*'], ['id = ' . $id])[0];
     }
 }

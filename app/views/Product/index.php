@@ -19,13 +19,13 @@ $this->component('PageEssentials/head', ['title' => $data['title']]);
         </thead>
         <tbody>
             <?php
-            if (isset($data['table']['body']) || count($data['table']['body']) > 0) {
+            if (isset($data['table']['body'][0])) {
                 foreach ($data['table']['body'] as $row) {
                     $this->component('TableEssentials/tableRow', ['rowData' => $row]);
                 }
             } else {
                 echo "<tr>";
-                for ($i = 0; $i < count($data['pageInfo']); $i++) {
+                for ($i = 0; $i < count($data['table']['head']); $i++) {
                     echo "<td>Null</td>";
                 }
                 echo "</tr>";

@@ -69,20 +69,20 @@ class Product extends BaseController
 
     public function Delivery($id)
     {
-        $allergys = $this->model('AllergyModel')->getProductAllergys($id);
-        $supplier = $this->model->getProduct($id);
+        $deliverys = $this->model('SupplierModel')->getDeliverys($id);
+        $supplier = $this->model('SupplierModel')->getSupplier($id)[0];
 
         $data = [
-            'title' => 'Allergys',
+            'title' => 'Supplier overview',
             'pageInfo' => [
-                'Supplier Id' => $supplier->id,
+                'Supplier Id' => $supplier->supplierNumber,
                 'Name supplier' => $supplier->name,
-                'Contact' => $supplier->barcode,
-                'Contact number' => $supplier->number
+                'Contact' => $supplier->contactPerson,
+                'Contact number' => $supplier->phone
             ],
             'table' => [
-                'head' => ['Allergy', 'Description'],
-                'body' => $allergys
+                'head' => ['Product name', 'Date of delivery', 'Amount', 'Date next delivery'],
+                'body' => $deliverys
             ]
         ];
 
