@@ -7,49 +7,47 @@
 //If valid and no dangers are found, it will send user with the data to the /app/require.php file
 //If not valid, it will send the user an error code
 
-$url = $_SERVER['REQUEST_URI'];
+$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$extension = pathinfo($url, PATHINFO_EXTENSION);
 
-if (isset($_SERVER['HTTP_REFERER'])) {
-    // Get the file extension
-    $extension = pathinfo($url, PATHINFO_EXTENSION);
 
-    // Set the Content-Type header based on the file extension
-    if (isset($extension)) {
-        switch ($extension) {
-            case 'css':
-                header('Content-Type: text/css');
-                break;
-            case 'js':
-                header('Content-Type: application/javascript');
-                break;
-            case 'jpg':
-            case 'jpeg':
-                header('Content-Type: image/jpeg');
-                break;
-            case 'png':
-                header('Content-Type: image/png');
-                break;
-            case 'svg':
-                header('Content-Type: image/svg+xml');
-                break;
-            case 'gif':
-                header('Content-Type: image/gif');
-                break;
-            case 'ico':
-                header('Content-Type: image/x-icon');
-                break;
-            default:
-                header('Content-Type: text/html');
-                break;
-        }
-    } else {
-        header('Content-Type: text/html');
+if (isset($extension) && $extension != '') {
+    if ($extension == 'php') {
+        http_response_code(403);
+        exit();
     }
-
+    switch ($extension) {
+        case 'css':
+            header('Content-Type: text/css');
+            break;
+        case 'js':
+            header('Content-Type: application/javascript');
+            break;
+        case 'jpg':
+        case 'jpeg':
+            header('Content-Type: image/jpeg');
+            break;
+        case 'png':
+            header('Content-Type: image/png');
+            break;
+        case 'svg':
+            header('Content-Type: image/svg+xml');
+            break;
+        case 'gif':
+            header('Content-Type: image/gif');
+            break;
+        case 'ico':
+            header('Content-Type: image/x-icon');
+            break;
+        default:
+            header('Content-Type: text/html');
+            break;
+    }
     // Check if the file exists
-    if (file_exists(__DIR__ . $url)) {
+    if (file_exists(__DIR__ . '/public' . $url)) {
+
         // If the file exists, output its contents
-        echo file_get_contents(__DIR__ . $url);
+        echo file_get_contents(__DIR__ . '/public' . $url);
     } else {
         // If the file does not exist, send a 404 'Not Found' response
         http_response_code(404);
