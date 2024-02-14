@@ -1,12 +1,17 @@
 <?php
 
-class ProductModel
+class ProductModel extends BaseModel
 {
-    private $db;
-
     public function __construct()
     {
-        $this->db = new Database();
+        parent::__construct();
+
+        $this->table = 'product';
+
+        $this->fillable = [
+            'name',
+            'barcode'
+        ];
     }
 
     public function getInventory()
@@ -16,10 +21,8 @@ class ProductModel
         return $this->db->execute(true);
     }
 
-    public function getProduct($id)
+    public function getProduct(int $id)
     {
-        $this->db->query('SELECT * FROM product WHERE id = :id');
-        $this->db->bind(':id', $id);
-        return $this->db->execute(true)[0];
+        return $this->get(['*'], ['id = ' . $id]);
     }
 }

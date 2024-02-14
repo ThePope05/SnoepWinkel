@@ -1,12 +1,26 @@
 <?php
 
-class MODEL_NAME
+class MODEL_NAME extends BaseModel
 {
-    private $db;
-
+    //This is required for every Model
     public function __construct()
     {
-        $this->db = new Database();
+        //Here you can call the parent constructor, no need to change this
+        parent::__construct();
+
+        //Here you can set the table and the fillable fields
+
+        //This is the name of the table, this is only used for the default CRUD methods
+        //For custom queries you will have to write the query yourself
+        $this->table = 'TABLE_NAME';
+
+        //This is an array of the fields that can be filled and updated
+        //This is only used for the default CRUD methods
+        //The Read and Delete methods do not use this
+        $this->fillable = [
+            'COLUMN_NAME',
+            'COLUMN_NAME'
+        ];
     }
 
     //Example of a query

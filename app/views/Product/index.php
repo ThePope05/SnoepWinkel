@@ -5,13 +5,11 @@ $this->component('PageEssentials/head', ['title' => $data['title']]);
 <body>
     <!-- All html goes here -->
     <h1><?= $data['title'] ?></h1>
-    <?php if (isset($data['pageInfo'])) : ?>
-        <div>
-            <?php foreach ($data['pageInfo'] as $key => $value) : ?>
-                <p><?= $key ?> <?= $value ?></p>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+    <?php
+    if (isset($data['pageInfo'])) {
+        $this->component('PageEssentials/pageInfo', ['pageInfo' => $data['pageInfo']]);
+    }
+    ?>
 
     <table>
         <thead>
@@ -21,8 +19,16 @@ $this->component('PageEssentials/head', ['title' => $data['title']]);
         </thead>
         <tbody>
             <?php
-            foreach ($data['table']['body'] as $row) {
-                $this->component('TableEssentials/tableRow', ['rowData' => $row]);
+            if (isset($data['table']['body']) || count($data['table']['body']) > 0) {
+                foreach ($data['table']['body'] as $row) {
+                    $this->component('TableEssentials/tableRow', ['rowData' => $row]);
+                }
+            } else {
+                echo "<tr>";
+                for ($i = 0; $i < count($data['pageInfo']); $i++) {
+                    echo "<td>Null</td>";
+                }
+                echo "</tr>";
             }
             ?>
         </tbody>

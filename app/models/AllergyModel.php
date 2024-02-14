@@ -1,15 +1,21 @@
 <?php
 
-class AllergyModel
+class AllergyModel extends BaseModel
 {
-    private $db;
 
     public function __construct()
     {
-        $this->db = new Database();
+        parent::__construct();
+
+        $this->table = 'allergy';
+
+        $this->fillable = [
+            'name',
+            'description'
+        ];
     }
 
-    public function getProductAllergys($id)
+    public function getProductAllergys(int $id)
     {
         $this->db->query('SELECT allergy.name, allergy.description FROM allergy
                           LEFT JOIN productAllergy ON productAllergy.allergyId = allergy.id
@@ -18,11 +24,10 @@ class AllergyModel
         return $this->db->execute(true);
     }
 
-    public function hasAllergys($id)
+    public function hasAllergys(int $id)
     {
-        $this->db->query('SELECT count(id) AS allergyAmount FROM productAllergy WHERE productId = :id');
-        $this->db->bind(':id', $id);
-
-        return $this->db->execute(true)[0]->allergyAmount > 0;
+        $this->table = 'productAllergy';
+        $allergyAmount = $this->get(['count(id) AS allergyAmount'], ['productId = ' . $id])[0]->allergyAmount;
+        return $allergyAmount > 0;
     }
 }

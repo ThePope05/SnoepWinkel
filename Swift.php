@@ -78,15 +78,11 @@ if (isset($argv[1])) {
                 $dbContent = fread($dbFile, filesize("./app/libraries/components/newDatabaseScript.sql"));
                 fclose($dbFile);
 
-                $dbContent = str_replace("TABLE_NAME", $controller, $dbContent);
-
-                //Get all current database files
-                //Then count the number of files and add 1 to the number add that to the new file name
-
                 $allDbFiles = glob('./app/db/*.sql');
                 $fileCount = count($allDbFiles) + 1;
+                $fileNumber = ($fileCount < 10) ? (string)('0' . $fileCount) : $fileCount;
 
-                $newDbFile = fopen("./app/db/" . $fileCount . "_" . $controller . ".sql", "w") or die("Unable to open file!");
+                $newDbFile = fopen("./app/db/" . $fileNumber . "_" . $controller . ".sql", "w") or die("Unable to open file!");
                 fwrite($newDbFile, $dbContent);
                 fclose($newDbFile);
             }
@@ -208,7 +204,7 @@ function removeAllTerminalStyles()
     echo TS_Reset;
 }
 
-function cancelScript($message = "Thank you for using my MVC framework")
+function cancelScript($message = "Stopping Swift")
 {
     echo TS_Reset . "\n";
     writeTerminalLine([["bold", "underline", "reverse"], "magenta"], $message);
