@@ -170,12 +170,18 @@ if (isset($argv[1])) {
 
         removeAllTerminalStyles();
         shell_exec(sprintf('php -S %s router.php', $server) . " -c app/config/php.ini");
+    } else if (strtoupper($argv[1]) == "DEV") {
+
+        shell_exec("npx tailwindcss -i ./public/css/tailwindInput.css -o ./public/css/tailwindOutput.css --watch");
+
+        cancelScript();
     } else {
         writeTerminalLine(["bold", "red"], "Command not found" . PHP_EOL);
         writeTerminalLine(["bold", "yellow"], "Available commands:");
         writeTerminalLine(["bold", "yellow"], " - create -m -c -v -a -d");
         writeTerminalLine(["bold", "yellow"], " - database [filenumber]");
         writeTerminalLine(["bold", "yellow"], " - localhost");
+        writeTerminalLine(["bold", "yellow"], " - dev");
         cancelScript();
     }
 }
