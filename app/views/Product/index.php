@@ -2,16 +2,15 @@
 $this->component('PageEssentials/head', ['title' => $data['title']]);
 ?>
 
-<body>
-    <!-- All html goes here -->
-    <h1><?= $data['title'] ?></h1>
+<body class="w-full h-screen bg-slate-800 flex flex-col justify-center align-middle">
+    <h1 class="text-4xl font-semibold text-slate-600 text-center"><?= $data['title']; ?></h1>
     <?php
     if (isset($data['pageInfo'])) {
         $this->component('PageEssentials/pageInfo', ['pageInfo' => $data['pageInfo']]);
     }
     ?>
 
-    <table>
+    <table class="w-3/5 mx-auto bg-gradient-to-br from-slate-600 to-slate-500">
         <thead>
             <?php
             $this->component('TableEssentials/tableHead', ['rowData' => $data['table']['head']]);
