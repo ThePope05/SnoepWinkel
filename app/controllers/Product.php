@@ -18,17 +18,17 @@ class Product extends BaseController
 
         foreach ($allData as $row) {
             $allergyEl = $this->model('AllergyModel')->hasAllergys($row->id) ? "
-                <a href='/Product/Allergy/$row->id'><span class='material-symbols-outlined'>
+                <a href='/Product/Allergy/$row->id'><span class='material-symbols-outlined text-amber-500 hover:text-amber-600 transition-colors'>
                 allergy
                 </span></a>
             " : "
-                <a href='/Product/Allergy/$row->id'><span class='material-symbols-outlined' style='color: red;'>
+                <a href='/Product/Allergy/$row->id'><span class='material-symbols-outlined text-red-600 hover:text-red-700 transition-colors'>
                 close
                 </span></a>
             ";
 
             $deliveryEl = "
-                <a href='/Product/Delivery/$row->id'><span class='material-symbols-outlined'>
+                <a href='/Product/Delivery/$row->id'><span class='material-symbols-outlined text-amber-500 hover:text-amber-600 transition-colors'>
                 orders
                 </span></a>
             ";
@@ -39,7 +39,7 @@ class Product extends BaseController
         $data = [
             'title' => 'Product overview',
             'table' => [
-                'head' => ['Code', 'Name', 'Package unit', 'Amount', 'Allergy', 'Delivery'],
+                'head' => ['Code', 'Name', 'Package unit(KG)', 'Amount', 'Allergy', 'Delivery'],
                 'body' => $tableBody
             ]
         ];
