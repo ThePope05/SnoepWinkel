@@ -37,4 +37,19 @@ class SupplierModel extends BaseModel
         $this->db->bind(':id', $productId);
         return $this->db->execute(true);
     }
+
+    public function storeDelivery(int $supplierId, int $productId, int $amount, $dateNextDelivery)
+    {
+        $this->db->query('INSERT INTO productSupplier (supplierId, productId, amount, dateDelivery, dateNextDelivery) VALUES (:supplierId, :productId, :amount, curDate(), :dateNextDelivery)');
+        $this->db->bind(':supplierId', $supplierId);
+        $this->db->bind(':productId', $productId);
+        $this->db->bind(':amount', $amount);
+        $this->db->bind(':dateNextDelivery', $dateNextDelivery);
+        $this->db->execute();
+
+        $this->db->query('UPDATE storage SET inStorage = inStorage + :amount WHERE productId = :productId');
+        $this->db->bind(':amount', $amount);
+        $this->db->bind(':productId', $productId);
+        $this->db->execute();
+    }
 }

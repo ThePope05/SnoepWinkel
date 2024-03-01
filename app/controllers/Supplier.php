@@ -127,4 +127,14 @@ class Supplier extends BaseController
 
         $this->view('General/formView', $data);
     }
+
+    public function storeDelivery(int $supplierId, int $productId)
+    {
+        $amount = $_POST['amount'];
+        $dateNextDelivery = $_POST['dateNextDelivery'];
+
+        $this->model->storeDelivery($supplierId, $productId, $amount, $dateNextDelivery);
+
+        header('Location: /Supplier/Product/' . $supplierId);
+    }
 }
