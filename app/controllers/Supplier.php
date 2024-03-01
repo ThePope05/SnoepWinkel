@@ -95,11 +95,9 @@ class Supplier extends BaseController
             'title' => 'New delivery',
             'pageInfo' => [
                 'Supplier name' => $supplier->name,
-                'Supplier number' => $supplier->supplierNumber,
                 'Contact person' => $supplier->contactPerson,
                 'Phone' => $supplier->phone,
-                'Product name' => $product->name,
-                'Barcode' => $product->barcode
+                'Product name' => $product->name
             ],
             'form' => [
                 'action' => '/Supplier/storeDelivery/' . $supplierId . '/' . $productId,
@@ -109,17 +107,23 @@ class Supplier extends BaseController
                         'type' => 'number',
                         'name' => 'amount',
                         'label' => 'Amount',
+                        'min' => 0,
+                        'value' => 0,
                         'required' => true
                     ],
                     [
                         'type' => 'date',
                         'name' => 'dateNextDelivery',
                         'label' => 'Next delivery date',
+                        'min' => date('Y-m-d'),
+                        'value' => date('Y-m-d'),
                         'required' => true
                     ]
                 ]
             ]
         ];
+
+        //dd($data['form']['fields']);
 
         $this->view('General/formView', $data);
     }

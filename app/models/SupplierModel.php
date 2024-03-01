@@ -2,44 +2,39 @@
 
 class SupplierModel extends BaseModel
 {
+    //This is required for every Model
     public function __construct()
     {
         parent::__construct();
 
-        $this->table = 'supplier';
+
+        $this->table = 'Supplier';
 
         $this->fillable = [
+            'supplierNumber',
             'name',
             'contactPerson',
-            'supplierNumber',
             'phone'
         ];
     }
 
+    public function getAllSuppliers(): array
+    {
+        return $this->get(['*']);
+    }
+
     public function getSupplier(int $id)
     {
-        $sql = "SELECT s.id, s.name, s.phone, s.contactPerson, s.supplierNumber FROM supplier s
-                INNER JOIN productSupplier ps ON ps.supplierId = s.id
-                WHERE ps.productId = :id";
-
-        $this->db->query($sql);
-
-        $this->db->bind(':id', $id);
-
-        return $this->db->execute(true);
+        return $this->get(['*'], ['id = ' . $id])[0];
     }
 
     public function getDeliverys(int $productId)
     {
-        $sql = "SELECT p.name, ps.dateDelivery, ps.amount, ps.dateNextDelivery FROM productSupplier ps
-                INNER JOIN product p ON p.id = ps.productId
-                WHERE ps.productId = :productId
-                ORDER BY ps.dateDelivery DESC";
-
-        $this->db->query($sql);
-
-        $this->db->bind(':productId', $productId);
-
+        $this->db->query('SELECT * FROM productSupplier
+                          LEFT JOIN supplier ON productSupplier.supplierId = supplier.id
+                            LEFT JOIN product ON productSupplier.productId = product.id
+                          WHERE productId = :id');
+        $this->db->bind(':id', $productId);
         return $this->db->execute(true);
     }
 }
