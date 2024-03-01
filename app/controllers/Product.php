@@ -22,13 +22,13 @@ class Product extends BaseController
                 allergy
                 </span></a>
             " : "
-                <a href='/Product/Allergy/$row->id'><span class='material-symbols-outlined text-red-600 hover:text-red-700 transition-colors'>
+                <a href='/product/allergy/$row->id'><span class='material-symbols-outlined text-red-600 hover:text-red-700 transition-colors'>
                 close
                 </span></a>
             ";
 
             $deliveryEl = "
-                <a href='/Product/Delivery/$row->id'><span class='material-symbols-outlined text-amber-500 hover:text-amber-600 transition-colors'>
+                <a href='/product/delivery/$row->id'><span class='material-symbols-outlined text-amber-500 hover:text-amber-600 transition-colors'>
                 orders
                 </span></a>
             ";
@@ -44,7 +44,7 @@ class Product extends BaseController
             ]
         ];
 
-        $this->view('Product/index', $data);
+        $this->view('General/tableview', $data);
     }
 
     public function Allergy($id)
@@ -64,13 +64,18 @@ class Product extends BaseController
             ]
         ];
 
-        $this->view('Product/index', $data);
+        $this->view('General/tableview', $data);
     }
 
     public function Delivery($id)
     {
         $deliverys = $this->model('SupplierModel')->getDeliverys($id);
-        $supplier = $this->model('SupplierModel')->getSupplier($id)[0];
+        $supplier = $this->model('SupplierModel')->getSupplier($deliverys[0]->supplierId);
+
+        $tableBody = [];
+        foreach ($deliverys as $delivery) {
+            $tableBody[count($tableBody)] = [$delivery->name, $delivery->dateDelivery, $delivery->amount, $delivery->dateNextDelivery];
+        }
 
         $data = [
             'title' => 'Supplier overview',
@@ -82,10 +87,10 @@ class Product extends BaseController
             ],
             'table' => [
                 'head' => ['Product name', 'Date of delivery', 'Amount', 'Date next delivery'],
-                'body' => $deliverys
+                'body' => $tableBody
             ]
         ];
 
-        $this->view('Product/index', $data);
+        $this->view('General/tableview', $data);
     }
 }
